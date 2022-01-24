@@ -1,0 +1,57 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Method SerendipityHQ\\\\Component\\\\Messenger\\\\Finder\\\\DoctrineMessageFinder\\:\\:exists\\(\\) has parameter \\$params with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Finder/DoctrineMessageFinder.php
+
+		-
+			message: "#^Method SerendipityHQ\\\\Component\\\\Messenger\\\\Finder\\\\DoctrineMessageFinder\\:\\:find\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/Finder/DoctrineMessageFinder.php
+
+		-
+			message: "#^Method SerendipityHQ\\\\Component\\\\Messenger\\\\Finder\\\\DoctrineMessageFinder\\:\\:find\\(\\) has parameter \\$params with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Finder/DoctrineMessageFinder.php
+
+		-
+			message: "#^Call to method setTimeout\\(\\) on an unknown class Symfony\\\\Component\\\\Process\\\\Process\\.$#"
+			count: 1
+			path: src/Handler/AbstractCommandHandler.php
+
+		-
+			message: "#^Class DateTimeImmutable is unsafe to use\\. Its methods can return FALSE instead of throwing an exception\\. Please add 'use Safe\\\\DateTimeImmutable;' at the beginning of the file to use the variant provided by the 'thecodingmachine/safe' library\\.$#"
+			count: 1
+			path: src/Handler/AbstractCommandHandler.php
+
+		-
+			message: "#^Instantiated class SerendipityHQ\\\\Integration\\\\AnsiConverter\\\\ShqTheme not found\\.$#"
+			count: 1
+			path: src/Handler/AbstractCommandHandler.php
+
+		-
+			message: "#^Instantiated class Symfony\\\\Component\\\\Process\\\\Process not found\\.$#"
+			count: 1
+			path: src/Handler/AbstractCommandHandler.php
+
+		-
+			message: "#^Method SerendipityHQ\\\\Component\\\\Messenger\\\\Handler\\\\AbstractCommandHandler\\:\\:run\\(\\) has parameter \\$optsAndArgs with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Handler/AbstractCommandHandler.php
+
+		-
+			message: "#^Method SerendipityHQ\\\\Component\\\\Messenger\\\\Handler\\\\AbstractCommandHandler\\:\\:run\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Handler/AbstractCommandHandler.php
+
+		-
+			message: "#^Parameter \\#1 \\$theme of class SensioLabs\\\\AnsiConverter\\\\AnsiToHtmlConverter constructor expects SensioLabs\\\\AnsiConverter\\\\Theme\\\\Theme\\|null, SerendipityHQ\\\\Integration\\\\AnsiConverter\\\\ShqTheme given\\.$#"
+			count: 1
+			path: src/Handler/AbstractCommandHandler.php
+
+		-
+			message: "#^Class DateTimeImmutable is unsafe to use\\. Its methods can return FALSE instead of throwing an exception\\. Please add 'use Safe\\\\DateTimeImmutable;' at the beginning of the file to use the variant provided by the 'thecodingmachine/safe' library\\.$#"
+			count: 1
+			path: src/Stamp/ExecuteAfterDateStamp.php
+
