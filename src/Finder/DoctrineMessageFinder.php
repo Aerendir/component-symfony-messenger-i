@@ -13,54 +13,63 @@ declare(strict_types=1);
 
 namespace SerendipityHQ\Component\Messenger\Finder;
 
+use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Exception\TableNotFoundException;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\Query\ResultSetMapping;
 use function Safe\sprintf;
+use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
+use Symfony\Component\PropertyInfo\PropertyInfoExtractorInterface;
 
 final class DoctrineMessageFinder
 {
-    private EntityManagerInterface $entityManager;
+    private Connection $connection;
 
-    public function __construct(EntityManagerInterface $entityManager)
+    private PropertyAccessorInterface $propertyAccessor;
+
+    private PropertyInfoExtractorInterface  $propertyInfoExtractor;
+
+    public function __construct(EntityManagerInterface $entityManager, PropertyAccessorInterface $propertyAccessor, PropertyInfoExtractorInterface $propertyInfoExtractor)
     {
-        $this->entityManager = $entityManager;
+        $this->connection            = $entityManager->getConnection();
+        $this->propertyAccessor      = $propertyAccessor;
+        $this->propertyInfoExtractor = $propertyInfoExtractor;
     }
 
-    public function exists(string $message, array $params = []): bool
+    public function exists(object $message, bool $onlyNotAlreadyDelivered = true): bool
     {
-        $result = $this->find($message, $params);
+        $result = $this->find($message, $onlyNotAlreadyDelivered);
 
-        if (empty($result)) {
-            return false;
+        return false === empty($result);
+    }
+
+    /**
+     * @return array<array-key,mixed>
+     */
+    public function find(object $message, bool $onlyNotAlreadyDelivered = true): array
+    {
+        $query        = 'SELECT * FROM public.messenger_messages';
+        $whereClauses = [];
+
+        if ($onlyNotAlreadyDelivered) {
+            $whereClauses[] = 'delivered_at IS NULL';
         }
 
-        // If used in a message handler, the message that is handling is still present in the database.
-        // If it is still present in the database and we count === 0, then the conditions will always
-        // been true and, in the end, we will lose the new message.
-        // Accpting that at least one message exists, we return false also if one message still exists.
-        return (\is_countable($result) ? \count($result) : 0) > 1;
-    }
+        $whereTypeParts   = [];
+        $whereTypeParts[] = sprintf("headers::json->>'type' = '%s'", \get_class($message));
 
-    public function find(string $message, array $params = [])
-    {
-        $rsm = new ResultSetMapping();
-        $rsm->addScalarResult('id', 'id', 'integer');
-        $rsm->addScalarResult('body', 'body', 'json');
-        $rsm->addScalarResult('headers', 'headers', 'json');
-        $rsm->addScalarResult('queue_name', 'queue_name', 'string');
-        $rsm->addScalarResult('created_at', 'created_at', 'string');
-        $rsm->addScalarResult('available_at', 'available_at', 'string');
-        $rsm->addScalarResult('delivered_at', 'delivered_at', 'string');
+        $whereBodyParts = $this->buildWhereBodyParts($message);
 
-        $query = sprintf("SELECT * FROM messenger_messages WHERE headers::json->>'type' = '%s'", $message);
+        $whereClauses = \array_merge($whereClauses, $whereTypeParts, $whereBodyParts);
 
-        foreach ($params as $param => $value) {
-            $query .= sprintf(" AND body::json->>'%s' = '%s'", $param, $value);
+        if (\count($whereClauses) > 1) {
+            $query .= ' WHERE ';
+            $query .= \implode(' AND ', $whereClauses);
         }
 
         try {
-            $result = $this->entityManager->createNativeQuery($query, $rsm)->getResult();
+            $stmt   = $this->connection->prepare($query);
+            $query  = $stmt->executeQuery();
+            $result = $query->fetchAllAssociative();
         }
         // If no message has yet been dispatched, then the table "messenger_messages" doesn't exist
         catch (TableNotFoundException $tableNotFoundException) {
@@ -72,5 +81,28 @@ final class DoctrineMessageFinder
         }
 
         return $result;
+    }
+
+    /**
+     * @return array<array-key,string>
+     */
+    private function buildWhereBodyParts(object $message): array
+    {
+        $properties = $this->propertyInfoExtractor->getProperties(\get_class($message)) ?? [];
+
+        $bodyQuery = [];
+        foreach ($properties as $propertyName) {
+            $value = $this->propertyAccessor->getValue($message, $propertyName);
+            if (\is_bool($value)) {
+                $value       = true === $value ? 'true' : 'false';
+                $bodyQuery[] = sprintf("(body::json->>'%s')::boolean = %s", $propertyName, $value);
+
+                continue;
+            }
+
+            $bodyQuery[] = sprintf("body::json->>'%s' = '%s'", $propertyName, $value);
+        }
+
+        return $bodyQuery;
     }
 }
