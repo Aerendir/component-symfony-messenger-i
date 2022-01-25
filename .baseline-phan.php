@@ -10,10 +10,12 @@
 return [
     // # Issue statistics:
     // PhanUndeclaredClassMethod : 2 occurrences
+    // PhanUnextractableAnnotationSuffix : 2 occurrences
     // PhanUnreferencedProtectedMethod : 1 occurrence
 
     // Currently, file_suppressions and directory_suppressions are the only supported suppressions
     'file_suppressions' => [
+        'src/Finder/DoctrineMessageFinder.php' => ['PhanUnextractableAnnotationSuffix'],
         'src/Handler/AbstractCommandHandler.php' => ['PhanUndeclaredClassMethod', 'PhanUnreferencedProtectedMethod'],
     ],
     // 'directory_suppressions' => ['src/directory_name' => ['PhanIssueName1', 'PhanIssueName2']] can be manually added if needed.
