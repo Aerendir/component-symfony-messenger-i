@@ -13,10 +13,16 @@ declare(strict_types=1);
 
 namespace SerendipityHQ\Component\Messenger\Stamp;
 
+use Safe\DateTimeImmutable;
+use SerendipityHQ\Component\Messenger\Stamp\Factory\DelayStampFactory;
 use Symfony\Component\Messenger\Stamp\DelayStamp;
+
+trigger_deprecation('serendipity_hq/component-symfony-messenger-utils', '2.1.0', 'The "%s" class is deprecated, Use "%s" or "%s" instead.', ExecuteAfterDateStamp::class, DelayStamp::class, DelayStampFactory::class);
 
 /**
  * Creates a DelayStamp starting from a date in the future.
+ *
+ * @depracated since 2.1.0. Use Symfony\Component\Messenger\Stamp\DelayStamp or SerendipityHQ\Component\Messenger\Stamp\Factory\DelayStampFactory instead.
  */
 final class ExecuteAfterDateStamp
 {
@@ -29,7 +35,7 @@ final class ExecuteAfterDateStamp
 
     public static function executeAfter(\DateTimeInterface $executeAfter): DelayStamp
     {
-        $now  = (int) (new \DateTimeImmutable())->format('U');
+        $now  = (int) (new DateTimeImmutable())->format('U');
         $diff = \abs((int) $executeAfter->format('U') - $now) * 1_000;
 
         return new DelayStamp($diff);
