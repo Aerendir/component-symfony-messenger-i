@@ -30,8 +30,3 @@ parameters:
 			count: 1
 			path: src/Handler/AbstractCommandHandler.php
 
-		-
-			message: "#^Class DateTimeImmutable is unsafe to use\\. Its methods can return FALSE instead of throwing an exception\\. Please add 'use Safe\\\\DateTimeImmutable;' at the beginning of the file to use the variant provided by the 'thecodingmachine/safe' library\\.$#"
-			count: 1
-			path: src/Stamp/ExecuteAfterDateStamp.php
-
