@@ -36,12 +36,12 @@ final class Rescheduler
         $this->doctrineMessageFinder = $doctrineMessageFinder;
     }
 
-    public function reschedule(object $message, int $delayUnits, string $delayPeriod): void
+    public function reschedule(object $message, int $delayUnits, string $delayPeriod, bool $ensureUniqueness = true): void
     {
         $this->logger->info('Reschedule set in {delay_units} {delay_period}}', ['delay_units' => $delayUnits, 'delay_period' => $delayPeriod]);
 
         $logMessage = 'NOT rescheduled as the message already exists';
-        if (false === $this->doctrineMessageFinder->exists($message)) {
+        if ($ensureUniqueness && false === $this->doctrineMessageFinder->exists($message)) {
             $this->commandBus->dispatch($message, [DelayStampFactory::delayFor($delayUnits, $delayPeriod)]);
             $logMessage = "Rescheduled as the message doesn't already exist";
         }
