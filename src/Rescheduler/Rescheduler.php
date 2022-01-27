@@ -38,7 +38,7 @@ final class Rescheduler
 
     public function reschedule(object $message, int $delayUnits, string $delayPeriod): void
     {
-        $this->logger->info('Reschedule set in 1 day');
+        $this->logger->info('Reschedule set in {delay_units} {delay_period}}', ['delay_units' => $delayUnits, 'delay_period' => $delayPeriod]);
 
         $logMessage = 'NOT rescheduled as the message already exists';
         if (false === $this->doctrineMessageFinder->exists($message)) {
