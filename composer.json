@@ -23,7 +23,7 @@
         "doctrine/orm": "^2.11",
         "phpstan/phpstan": "1.8.0",
         "phpstan/phpstan-phpunit": "1.1.1",
-        "rector/rector": "0.13.4",
+        "rector/rector": "0.13.8",
         "roave/security-advisories": "dev-master",
         "serendipity_hq/ansi-converter-shq-theme": "^1.0",
         "serendipity_hq/rector-config": "^1.0",
@@ -32,7 +32,8 @@
     "config": {
         "sort-packages": true,
         "allow-plugins": {
-            "bamarni/composer-bin-plugin": true
+            "bamarni/composer-bin-plugin": true,
+            "symfony/flex": true
         }
     },
     "autoload": {
