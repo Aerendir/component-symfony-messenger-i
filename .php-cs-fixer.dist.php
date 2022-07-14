@@ -66,7 +66,7 @@ return $config
                 'magic'
             ]
         ],
-        'ordered_imports' => true,
+        'ordered_imports' => ['sort_algorithm' => 'alpha', 'imports_order' => ['class', 'function', 'const']],
         'phpdoc_add_missing_param_annotation' => true,
         'phpdoc_order' => true,
         'phpdoc_var_without_name' => false,
