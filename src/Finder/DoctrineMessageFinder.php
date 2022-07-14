@@ -16,9 +16,10 @@ namespace SerendipityHQ\Component\Messenger\Finder;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Exception\TableNotFoundException;
 use Doctrine\ORM\EntityManagerInterface;
-use function Safe\sprintf;
 use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 use Symfony\Component\PropertyInfo\PropertyInfoExtractorInterface;
+
+use function Safe\sprintf;
 
 final class DoctrineMessageFinder
 {
