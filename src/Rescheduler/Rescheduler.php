@@ -21,9 +21,7 @@ use Symfony\Component\Messenger\MessageBusInterface;
 final class Rescheduler
 {
     private LoggerInterface $logger;
-
     private MessageBusInterface $commandBus;
-
     private DoctrineMessageFinder $doctrineMessageFinder;
 
     public function __construct(
