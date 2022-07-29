@@ -21,9 +21,7 @@ use Symfony\Component\Process\Process;
 abstract class AbstractCommandHandler implements MessageHandlerInterface
 {
     private string $kernelProjectDir;
-
     private bool $successful;
-
     private AnsiToHtmlConverter $ansiConverter;
 
     public function __construct(string $kernelProjectDir)
