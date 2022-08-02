@@ -1,9 +1,9 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 /*
- * This file is part of the Serendipity HQ Aws Ses Bundle.
+ * This file is part of the Serendipity HQ Symfony Messenger Utils Component.
  *
  * Copyright (c) Adamo Aerendir Crespi <aerendir@serendipityhq.com>.
  *
@@ -11,20 +11,16 @@ declare(strict_types = 1);
  * file that was distributed with this source code.
  */
 
+use Rector\Config\RectorConfig;
 use Rector\Core\ValueObject\PhpVersion;
 use SerendipityHQ\Integration\Rector\SerendipityHQ;
-use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-use Rector\Core\Configuration\Option;
 
-return static function (ContainerConfigurator $containerConfigurator) : void {
-    $parameters = $containerConfigurator->parameters();
-
-    $parameters->set(Option::PHP_VERSION_FEATURES, PhpVersion::PHP_74);
-    $parameters->set(Option::PATHS, [__DIR__ . '/src', __DIR__ . '/tests']);
-    $parameters->set(Option::BOOTSTRAP_FILES, [__DIR__ . '/vendor-bin/phpunit/vendor/autoload.php']);
-
-    $containerConfigurator->import(SerendipityHQ::SHQ_LIBRARY);
+return static function (RectorConfig $rectorConfig): void {
+    $rectorConfig->phpVersion(PhpVersion::PHP_74);
+    $rectorConfig->paths([__DIR__ . '/src', __DIR__ . '/tests']);
+    $rectorConfig->bootstrapFiles([__DIR__ . '/vendor-bin/phpunit/vendor/autoload.php']);
+    $rectorConfig->import(SerendipityHQ::SHQ_LIBRARY);
 
     $toSkip = SerendipityHQ::buildToSkip(SerendipityHQ::SHQ_LIBRARY_SKIP);
-    $parameters->set(Option::SKIP, $toSkip);
+    $rectorConfig->skip($toSkip);
 };

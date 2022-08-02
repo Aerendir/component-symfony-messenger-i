@@ -15,8 +15,9 @@ namespace SerendipityHQ\Component\Messenger\Stamp\Factory;
 
 use Safe\DateTime;
 use Safe\DateTimeImmutable;
-use function Safe\sprintf;
 use Symfony\Component\Messenger\Stamp\DelayStamp;
+
+use function Safe\sprintf;
 
 /**
  * Creates a DelayStamp starting from a date in the future.
@@ -24,17 +25,11 @@ use Symfony\Component\Messenger\Stamp\DelayStamp;
 final class DelayStampFactory
 {
     public const PERIOD_SECONDS = 'seconds';
-
     public const PERIOD_MINUTES = 'minutes';
-
     public const PERIOD_HOURS   = 'hours';
-
     public const PERIOD_DAYS    = 'days';
-
     public const PERIOD_WEEKS   = 'weeks';
-
     public const PERIOD_MONTHS  = 'months';
-
     public const PERIOD_YEARS   = 'years';
 
     /**
