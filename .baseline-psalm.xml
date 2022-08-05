@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="v4.25.0@d7cd84c4ebca74ba3419b9601f81d177bcbe2aac">
+<files psalm-version="4.26.0@6998fabb2bf528b65777bf9941920888d23c03ac">
   <file src="src/Finder/DoctrineMessageFinder.php">
+    <DeprecatedFunction occurrences="3">
+      <code>sprintf("(body::json-&gt;&gt;'%s')::boolean = %s", $propertyName, $value)</code>
+      <code>sprintf("body::json-&gt;&gt;'%s' = '%s'", $propertyName, $value)</code>
+      <code>sprintf("headers::json-&gt;&gt;'type' = '%s'", \get_class($message))</code>
+    </DeprecatedFunction>
     <RedundantCondition occurrences="1">
       <code>\is_array($result)</code>
     </RedundantCondition>
@@ -18,5 +23,11 @@
     <UndefinedClass occurrences="1">
       <code>Process</code>
     </UndefinedClass>
+  </file>
+  <file src="src/Stamp/Factory/DelayStampFactory.php">
+    <DeprecatedFunction occurrences="2">
+      <code>sprintf('+%s %s', $units, $period)</code>
+      <code>sprintf('The passed period "%s" is not allowed. Allowed periods are: %s', $period, \implode(', ', $allowedPeriods))</code>
+    </DeprecatedFunction>
   </file>
 </files>

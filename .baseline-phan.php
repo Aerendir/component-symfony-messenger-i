@@ -9,6 +9,7 @@
  */
 return [
     // # Issue statistics:
+    // PhanDeprecatedFunction : 5 occurrences
     // PhanRedefinedClassReference : 4 occurrences
     // PhanUndeclaredClassMethod : 2 occurrences
     // PhanUnextractableAnnotationSuffix : 2 occurrences
@@ -16,9 +17,10 @@ return [
 
     // Currently, file_suppressions and directory_suppressions are the only supported suppressions
     'file_suppressions' => [
-        'src/Finder/DoctrineMessageFinder.php' => ['PhanUnextractableAnnotationSuffix'],
+        'src/Finder/DoctrineMessageFinder.php' => ['PhanDeprecatedFunction', 'PhanUnextractableAnnotationSuffix'],
         'src/Handler/AbstractCommandHandler.php' => ['PhanUndeclaredClassMethod', 'PhanUnreferencedProtectedMethod'],
         'src/Rescheduler/Rescheduler.php' => ['PhanRedefinedClassReference'],
+        'src/Stamp/Factory/DelayStampFactory.php' => ['PhanDeprecatedFunction'],
     ],
     // 'directory_suppressions' => ['src/directory_name' => ['PhanIssueName1', 'PhanIssueName2']] can be manually added if needed.
     // (directory_suppressions will currently be ignored by subsequent calls to --save-baseline, but may be preserved in future Phan releases)
