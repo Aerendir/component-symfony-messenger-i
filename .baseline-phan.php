@@ -13,12 +13,13 @@ return [
     // PhanRedefinedClassReference : 4 occurrences
     // PhanUndeclaredClassMethod : 2 occurrences
     // PhanUnextractableAnnotationSuffix : 2 occurrences
+    // PhanDeprecatedInterface : 1 occurrence
     // PhanUnreferencedProtectedMethod : 1 occurrence
 
     // Currently, file_suppressions and directory_suppressions are the only supported suppressions
     'file_suppressions' => [
         'src/Finder/DoctrineMessageFinder.php' => ['PhanDeprecatedFunction', 'PhanUnextractableAnnotationSuffix'],
-        'src/Handler/AbstractCommandHandler.php' => ['PhanUndeclaredClassMethod', 'PhanUnreferencedProtectedMethod'],
+        'src/Handler/AbstractCommandHandler.php' => ['PhanDeprecatedInterface', 'PhanUndeclaredClassMethod', 'PhanUnreferencedProtectedMethod'],
         'src/Rescheduler/Rescheduler.php' => ['PhanRedefinedClassReference'],
         'src/Stamp/Factory/DelayStampFactory.php' => ['PhanDeprecatedFunction'],
     ],
