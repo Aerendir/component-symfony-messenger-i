@@ -38,7 +38,7 @@ final class DoctrineMessageFinder
     {
         $result = $this->find($message, $onlyNotAlreadyDelivered);
 
-        return false === empty($result);
+        return [] !== $result;
     }
 
     /**
