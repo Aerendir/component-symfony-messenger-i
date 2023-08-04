@@ -25,7 +25,7 @@ final class DoctrineMessageFinder
 {
     private Connection $connection;
     private PropertyAccessorInterface $propertyAccessor;
-    private PropertyInfoExtractorInterface  $propertyInfoExtractor;
+    private PropertyInfoExtractorInterface $propertyInfoExtractor;
 
     public function __construct(EntityManagerInterface $entityManager, PropertyAccessorInterface $propertyAccessor, PropertyInfoExtractorInterface $propertyInfoExtractor)
     {
