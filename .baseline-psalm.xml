@@ -1,22 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="v4.25.0@d7cd84c4ebca74ba3419b9601f81d177bcbe2aac">
+<files psalm-version="5.0.0@4e177bf0c9f03c17d2fbfd83b7cc9c47605274d8">
   <file src="src/Finder/DoctrineMessageFinder.php">
+    <DeprecatedFunction occurrences="3">
+      <code>sprintf("(body::json-&gt;&gt;'%s')::boolean = %s", $propertyName, $value)</code>
+      <code>sprintf("body::json-&gt;&gt;'%s' = '%s'", $propertyName, $value)</code>
+      <code>sprintf("headers::json-&gt;&gt;'type' = '%s'", \get_class($message))</code>
+    </DeprecatedFunction>
     <RedundantCondition occurrences="1">
       <code>\is_array($result)</code>
     </RedundantCondition>
-    <ReservedWord occurrences="1">
-      <code>$this-&gt;propertyAccessor-&gt;getValue($message, $propertyName)</code>
-    </ReservedWord>
     <TypeDoesNotContainType occurrences="1">
       <code>false === \is_array($result)</code>
     </TypeDoesNotContainType>
   </file>
   <file src="src/Handler/AbstractCommandHandler.php">
+    <DeprecatedInterface occurrences="1">
+      <code>AbstractCommandHandler</code>
+    </DeprecatedInterface>
     <PropertyNotSetInConstructor occurrences="1">
       <code>$successful</code>
     </PropertyNotSetInConstructor>
     <UndefinedClass occurrences="1">
       <code>Process</code>
     </UndefinedClass>
+  </file>
+  <file src="src/Stamp/Factory/DelayStampFactory.php">
+    <DeprecatedFunction occurrences="2">
+      <code>sprintf('+%s %s', $units, $period)</code>
+      <code>sprintf('The passed period "%s" is not allowed. Allowed periods are: %s', $period, \implode(', ', $allowedPeriods))</code>
+    </DeprecatedFunction>
   </file>
 </files>
